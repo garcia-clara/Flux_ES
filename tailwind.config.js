@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./components/*.php"],
+  content: ["./*.php"],
   theme:{
     fontFamily: {
       'helvetica' : ['Helvetica']
