@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./*.php"],
-  theme:{
+  theme: {
     fontFamily: {
-      'helvetica' : ['Helvetica']
-    }
+      'helvetica': ['Helvetica']
+    },
   },
   daisyui: {
     themes: ["emerald"],
