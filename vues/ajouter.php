@@ -1,4 +1,5 @@
 <?php include('../components/navbar.php') ?>
+<?php include('../controller/controller.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -28,66 +29,80 @@
         <p class="ml-4">AJOUTER UN UTILISATEUR</p>
       </div>
 
+      <form action="#" method="post">
 
-      <div class="w-2/6 rounded-lg ml-8 border p-4">
+        <div class="w-2/6 rounded-lg ml-8 border p-4">
 
-        <div class="flex mb-8">
-          <div class="form-control w-full max-w-xs mr-4">
-            <input type="text" placeholder="Prénom" class="input input-bordered w-full max-w-xs" />
+          <div class="flex mb-8">
+            <div class="form-control w-full max-w-xs mr-4">
+              <input name="prenom" type="text" placeholder="Prénom" class="input input-bordered w-full max-w-xs" />
+            </div>
+
+            <div class="form-control w-full max-w-xs">
+              <input name="nom" type="text" placeholder="Nom" class="input input-bordered w-full max-w-xs" />
+            </div>
           </div>
 
-          <div class="form-control w-full max-w-xs">
-            <input type="text" placeholder="Nom" class="input input-bordered w-full max-w-xs" />
+          <div class="form-control w-full">
+            <input name="cu-id" type="text" placeholder="CU-ID" class="input input-bordered w-full" />
           </div>
-        </div>
 
-        <div class="form-control w-full">
-          <input type="text" placeholder="CU-ID" class="input input-bordered w-full" />
-        </div>
-
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Heure d'arrivée</span>
-          </label>
-          <input type="time" placeholder="Type here" class="input input-bordered w-full" />
-        </div>
-
-        <div class="flex">
-          <div class="form-control w-full max-w-xs mr-4">
+          <div class="form-control w-full">
             <label class="label">
-              <span class="label-text">Motif</span>
+              <span class="label-text">Heure d'arrivée</span>
             </label>
-            <select class="select select-bordered">
-              <option disabled selected>Sélectionner</option>
-              <option>DMI</option>
-              <option>Incident</option>
-              <option>ROADMAP</option>
-              <option>PILAF</option>
-              <option>Autre</option>
-            </select>
+            <input name="heure" type="text" class="input input-bordered w-full" />
           </div>
 
-          <div class="form-control w-full max-w-xs mt-9">
-            <input type="text" placeholder="Numéro INC, DMI..." class="input input-bordered w-full max-w-xs" />
+          <div class="flex">
+            <div class="form-control w-full max-w-xs mr-4">
+              <label class="label">
+                <span class="label-text">Motif</span>
+              </label>
+              <select name="motif" class="select select-bordered">
+                <option disabled selected>Sélectionner</option>
+                <option value="DMI">DMI</option>
+                <option value="Incident">Incident</option>
+                <option value="ROADMAP">ROADMAP</option>
+                <option value="PILAF">PILAF</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-control w-full max-w-xs mt-9">
+              <input name="numero" type="text" placeholder="Numéro INC, DMI..." class="input input-bordered w-full max-w-xs" />
+            </div>
+
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Commentaire</span>
+            </label>
+            <textarea name="commentaire" class="textarea textarea-bordered h-24" placeholder="Clavier HS, demande de chargeur, création de PKI..."></textarea>
+          </div>
+
+          <div class="flex flex-row-reverse w-full">
+            <button class="btn m-4" type="submit" name="ajouter">Ajouter</button>
           </div>
 
         </div>
 
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Commentaire</span>
-          </label>
-          <textarea class="textarea textarea-bordered h-24" placeholder="Clavier HS, demande de chargeur, création de PKI..."></textarea>
-        </div>
-
-        <div class="flex flex-row-reverse w-full">
-          <button class="btn m-4">Ajouter</button>
-        </div>
-
-      </div>
+      </form>
 
     </div>
   </div>
+
+  <?php
+
+  $controller = new controller;
+
+  if (isset($_POST['ajouter'])) {
+    $controller->insertUtilisateur($_POST);
+    var_dump($_POST);
+  }
+
+  ?>
 
 
 
