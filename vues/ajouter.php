@@ -1,5 +1,6 @@
 <?php include('../components/navbar.php') ?>
 <?php include('../controller/controller.php') ?>
+<?php include('../flags/flags.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -35,23 +36,23 @@
 
           <div class="flex mb-8">
             <div class="form-control w-full max-w-xs mr-4">
-              <input name="prenom" type="text" placeholder="Prénom" class="input input-bordered w-full max-w-xs" />
+              <input name="prenom" maxlength="15" type="text" placeholder="Prénom" class="input input-bordered w-full max-w-xs" />
             </div>
 
             <div class="form-control w-full max-w-xs">
-              <input name="nom" type="text" placeholder="Nom" class="input input-bordered w-full max-w-xs" />
+              <input name="nom" maxlength="15" type="text" placeholder="Nom" class="input input-bordered w-full max-w-xs" />
             </div>
           </div>
 
           <div class="form-control w-full">
-            <input name="cu-id" type="text" placeholder="CU-ID" class="input input-bordered w-full" />
+            <input name="cu-id" maxlength="8" type="text" placeholder="CU-ID" class="input input-bordered w-full" />
           </div>
 
           <div class="form-control w-full">
             <label class="label">
               <span class="label-text">Heure d'arrivée</span>
             </label>
-            <input name="heure" type="text" class="input input-bordered w-full" />
+            <input name="heure" type="time" class="input input-bordered w-full" />
           </div>
 
           <div class="flex">
@@ -70,7 +71,7 @@
             </div>
 
             <div class="form-control w-full max-w-xs mt-9">
-              <input name="numero" type="text" placeholder="Numéro INC, DMI..." class="input input-bordered w-full max-w-xs" />
+              <input name="numero" maxlength="20" type="text" placeholder="Numéro INC, DMI..." class="input input-bordered w-full max-w-xs" />
             </div>
 
           </div>
@@ -79,7 +80,7 @@
             <label class="label">
               <span class="label-text">Commentaire</span>
             </label>
-            <textarea name="commentaire" class="textarea textarea-bordered h-24" placeholder="Clavier HS, demande de chargeur, création de PKI..."></textarea>
+            <textarea name="commentaire" maxlength="500" class="textarea textarea-bordered h-24" placeholder="Clavier HS, demande de chargeur, création de PKI..."></textarea>
           </div>
 
           <div class="flex flex-row-reverse w-full">
@@ -99,7 +100,7 @@
 
   if (isset($_POST['ajouter'])) {
     $controller->insertUtilisateur($_POST);
-    var_dump($_POST);
+    
   }
 
   ?>

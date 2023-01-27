@@ -5,7 +5,7 @@
 class controller
 {
     private $pdo;
-    private $model;
+    public $model;
 
     public function __construct()
     {
@@ -15,7 +15,28 @@ class controller
 
     public function insertUtilisateur($data)
     {
-        $this->model->insertUtilisateur($data);
+        $e = $this->model->insertUtilisateur($data);
+        if($e){
+            header("Location:../vues/ajouter.php?success");
+        } else {
+            header("Location:../vues/ajouter.php?error");
+        }
+    }
+
+    public function showUtilisateur(){
+        $this->model->showUtilisateur;
+    }
+
+    public function takeUtilisateur(){
+        $this->model->takeUtilisateur;
+    }
+
+    public function countUtilisateur(){
+        $this->model->countUtilisateur;
+    }
+
+    public function countMotif($motif){
+        $this->model->countMotif($motif);
     }
 }
 

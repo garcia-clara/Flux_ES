@@ -1,4 +1,5 @@
 <?php include('../components/navbar.php') ?>
+<?php include('../controller/controller.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -29,8 +30,22 @@
 
             <div class="w-10/12 rounded-lg ml-8">
 
-                <div class="overflow-x-auto m-4 border rounded-md">
-                    <table class="table w-full">
+                <div class="overflow-x-auto m-4">
+
+                <?php 
+                    $controller = new controller;
+                    $allUtilisateurs = $controller->model->showUtilisateur();
+
+                    if(empty($allUtilisateurs)){ ?>
+
+                        <div class="flex items-center justify-center">
+                            <p class="text-xl m-24">Aucun utilisateur en attente</p>
+                        </div>
+
+                    <?php } else { ?>
+
+                    <table class="table w-full border">
+
                         <!-- head -->
                         <thead>
                             <tr>
@@ -44,28 +59,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- row 1 -->
+
+                        <!-- rows -->
+
+                    <?php foreach($allUtilisateurs as $unUtilisateur){ ?>
+
                             <tr>
-                                <th>CYGP3115</th>
-                                <td>Clara GARCIA</td>
-                                <td>Incident</td>
-                                <td>INC000094367</td>
-                                <td>14:27</td>
-                                <td>Clavier HS</td>
-                                <td><button class="btn btn-accent">Prendre en charge</button></td>
+                                <th><?php echo $unUtilisateur['cuid'] ?></th>
+                                <td><?php echo $unUtilisateur['prenom']; $unUtilisateur['nom'] ?></td>
+                                <td><?php echo $unUtilisateur['motif'] ?></td>
+                                <td><?php echo $unUtilisateur['numero'] ?></td>
+                                <td><?php echo $unUtilisateur['heure'] ?></td>
+                                <td><?php echo $unUtilisateur['commentaire'] ?></td>
+                                <td>
+                                <?php
+                                    if (!isset($_POST['prisencharge'])){ ?>
+                                        <form action="" method="POST">
+                                        <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
+                                        </form> 
+                                        <?php } else {
+                                        $controller->model->takeUtilisateur(13);
+                                        ?> <div class="badge badge-primary badge-outline">Romain RINVILLE</div> <?php
+                                    }
+                                ?>
+                                </td>
                             </tr>
-                            <!-- row 2 -->
-                            <tr>
-                                <th>OVDK9473</th>
-                                <td>Tom LAU</td>
-                                <td>DMI</td>
-                                <td>DMI00047283</td>
-                                <td>09:34</td>
-                                <td>Demande de chargeur</td>
-                                <td>Salim ALARCON</td>
-                            </tr>
+                        
+                <?php }} ?>
                         </tbody>
                     </table>
+                    
+
+
                 </div>
 
             </div>

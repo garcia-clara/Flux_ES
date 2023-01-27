@@ -1,4 +1,5 @@
 <?php include('../components/navbar.php') ?>
+<?php include('../controller/controller.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -33,7 +34,15 @@
                     <div class="stat">
                         <div class="stat-title">Total d'utilisateurs pris en charge par l'équipe</div>
                         <div class="">
-                            <div class="stat-value">12</div>
+                            <div class="stat-value">
+
+                                <?php   
+                                    $controller = new controller;
+                                    $usersNumbers = $controller->model->countUtilisateur();
+                                    echo $usersNumbers[0];
+                                ?>
+
+                            </div>
                             <div class="stat-desc">Aujourd'hui</div>
                         </div>
                     </div>
@@ -45,12 +54,22 @@
 
                         <div class="stat w-36">
                             <div class="stat-title">DMI</div>
-                            <div class="stat-value">4</div>
+                            <div class="stat-value">
+                                <?php   
+                                    $usersDMI = $controller->model->countMotif("DMI");
+                                    echo $usersDMI[0];
+                                ?>
+                            </div>
                         </div>
 
                         <div class="stat w-36">
                             <div class="stat-title">Incident</div>
-                            <div class="stat-value">2</div>
+                            <div class="stat-value">
+                                <?php   
+                                    $usersIncident = $controller->model->countMotif("Incident");
+                                    echo $usersIncident[0];
+                                ?>
+                            </div>
                         </div>
 
                         <div class="stat w-36">
