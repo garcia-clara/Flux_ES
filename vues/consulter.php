@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>ESPACE TSP - Consulter les utilisateurs</title>
+    <meta http-equiv="refresh" content="10">
 </head>
 
 <body>

@@ -38,6 +38,33 @@ class controller
     public function countMotif($motif){
         $this->model->countMotif($motif);
     }
+
+    public function inscription($data){
+        $this->model->inscription($data);
+    }
+
+    public function connexion($cuid, $mdp)
+    {
+        $allTsp = $this->model->get_all('tsp');
+
+        foreach ($allTsp as $tsp) {
+            if ($tsp['cuid'] === $cuid) {
+
+                if ($tsp['mdp'] === $mdp) {
+                    $_SESSION['cuid'] = $tsp['cuid'];
+                    $_SESSION['mdp'] = $tsp['mdp'];
+                    header('Location: ../vues/statistiques.php');
+                } 
+            } else {
+                header('Location: ../vues/connexion.php?signin-error');
+            }
+        }
+
+
+    }
 }
+
+
+
 
 ?>

@@ -1,4 +1,6 @@
-    <div class="flex items-center bg-black">
+<?php session_start() ?>
+ 
+ <div class="flex items-center bg-black">
 
         <div class="flex w-full items-center">
             <div class="flex flex-start w-2/4 items-center">
@@ -7,7 +9,9 @@
             </div>
 
             <div class="flex flex-row-reverse w-2/4">
-                <p class="text-3xl text-white mr-4">Bonjour Clara !</p>
+                <p class="text-3xl text-white mr-4">Bonjour <?php 
+                echo $id_session = session_id();
+                 ?> !</p>
             </div>
         </div>
 

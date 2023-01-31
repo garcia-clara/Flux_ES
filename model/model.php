@@ -7,6 +7,13 @@ class model{
         $this->pdo = new PDO("mysql:host=localhost;dbname=flux_es", "root", "");
     }
 
+    public function get_all($table)
+    {
+        $sql = "select * from $table";
+        return $this->pdo->query($sql)->fetchAll();
+
+    }
+
     public function insertUtilisateur($data)
     {
         // Etape 1 : Créer la requete SQL (insert)
@@ -59,6 +66,30 @@ class model{
     public function countMotif($motif){
         $sql="SELECT COUNT(motif) FROM utilisateurs WHERE motif = '?' ";
         return $this->pdo->query($sql)->fetch();
+    }
+
+    //--------------- INSCRIPTION
+
+    public function inscription($data){
+        $sql="INSERT INTO tsp 
+        VALUES( 
+            null,
+            :cuid,
+            :prenom,
+            :nom,
+            :mdp
+        )";
+
+        $p = $this->pdo->prepare($sql);
+
+        $data = array(
+            ":cuid" => htmlspecialchars($data['cuidtsp']),
+            ":prenom" => htmlspecialchars($data['prenomtsp']),
+            ":nom" => htmlspecialchars($data['nomtsp']),
+            ":mdp" => htmlspecialchars($data['mdptsp'])
+        );
+
+        $p->execute($data);
     }
     
 
