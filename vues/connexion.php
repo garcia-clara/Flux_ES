@@ -21,10 +21,14 @@
     <div></div>
 
     <div class="mt-24">
+      <h1 class='mb-2 text-green-600 text-xl'>
+        <?= isset($_GET['status']) ? 'Veuillez vous connecter' : '' ?>
+      </h1>
 
       <form action="#" method="post">
 
         <div class="w-full rounded-lg border p-4">
+
 
           <div class="align-center text-2xl font-bold flex items-center mb-4">
 

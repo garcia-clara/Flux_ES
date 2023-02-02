@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <div class="flex items-center bg-black">
 
     <div class="flex w-full items-center">
@@ -12,12 +8,10 @@ session_start();
         </div>
 
         <div class="flex justify-end items-center w-2/4">
-            <p class="text-3xl text-white mr-4">Bonjour <?php echo $_SESSION['cuid']; ?> !</p>
+            <p class="text-3xl text-white mr-4">Bonjour <?= $_SESSION['prenom'] ?> !</p>
             <a class="m-4" href="logout.php"><i class="bi bi-box-arrow-right text-4xl text-white"></i></a>
 
         </div>
     </div>
 
 </div>
-
-<?php var_dump($_SESSION); ?>

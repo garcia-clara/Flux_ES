@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include('../model/model.php');
 
 class controller
@@ -45,13 +45,7 @@ class controller
 
     public function inscription($data)
     {
-        $f = $this->model->inscription($data);
-
-        if ($f) {
-            header("Location:../vues/connexion.php?signup-success");
-        } else {
-            header("Location:../vues/inscription.php?signup-error");
-        }
+        $this->model->inscription($data);
     }
 
     public function findNameById($cuid)
@@ -61,25 +55,25 @@ class controller
 
     public function connexion($cuid, $mdp)
     {
-        $allTsp = $this->model->get_all('tsp');
-        $prenom = $this->model->findById($cuid);
-        var_dump($prenom);
+        $potential_user = $this->model->findById($cuid);
 
-        foreach ($allTsp as $tsp) {
-            if ($tsp['prenom'] == $prenom['prenom']) {
-                var_dump('ok prenom');
-                if ($tsp['mdp'] == $prenom['mdp']) {
-                    var_dump('ok mdp');
-                    // set variable de session
-                    $_SESSION['cuid'] = $tsp['cuid'];
-                    $_SESSION['prenom'] = $tsp['prenom'];
-                    header('Location: ../vues/statistiques.php?statut=ok');
-                }
-            }
+        // on controle si on a un user
+        if (!$potential_user) {
+            header('Location: ../vues/connexion.php?status=error');
         }
 
-        if (!$prenom) {
-            header('Location: ../vues/connexion.php?statut=error');
+        // on controle maintenant le mot de passe
+        $mdp_tsp = $this->pdo->query("SELECT * FROM tsp WHERE mdp = '$mdp'")->fetch();
+
+        if (!$mdp_tsp) {
+            header('Location: ../vues/connexion.php?status=error');
         }
+
+        // si on arrive la, c'est que notre user est bon alors
+        // on set les variables de session
+        $_SESSION['cuid'] = $potential_user['cuid'];
+        $_SESSION['prenom'] = $potential_user['prenom'];
+
+        return  header('Location: ../vues/statistiques.php');
     }
 }
