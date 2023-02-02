@@ -53,11 +53,15 @@ class model
 
     public function takeUtilisateur($id)
     {
-        $sql1 = 'UPDATE utilisateurs SET prisencharge = 1 WHERE id = "' . $id . '"';
-        $sql2 = 'UPDATE tsp SET nbutilisateurs = nbutilisateurs + 1 WHERE id = "' . $id . '"';
+        // correspond à la personne connecté
+        $idUser = $_SESSION['cuid'];
 
-        $stmt = $this->pdo->prepare($sql1);
-        $stmt = $this->pdo->prepare($sql2);
+        // requête
+        $sql1 = "UPDATE utilisateurs SET prisencharge = 1 WHERE id = $id";
+        $sql2 = "UPDATE tsp SET nbutilisateurs = nbutilisateurs + 1 WHERE cuid = $idUser";
+
+        $this->pdo->prepare($sql1)->execute();
+        $this->pdo->prepare($sql2)->execute();
     }
 
     public function countUtilisateur()
