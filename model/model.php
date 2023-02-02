@@ -16,7 +16,6 @@ class model{
 
     public function insertUtilisateur($data)
     {
-        // Etape 1 : Créer la requete SQL (insert)
         $sql = "INSERT INTO utilisateurs 
         VALUES(
             null, 
@@ -32,8 +31,6 @@ class model{
 
         $p = $this->pdo->prepare($sql);
 
-        // Etape 2 : Créer le tableau de contrainte
-
         $data = array(
         ":prenom" => htmlspecialchars($data['prenom']),
         ":nom" => htmlspecialchars($data['nom']),
@@ -44,7 +41,6 @@ class model{
         ":commentaire" => htmlspecialchars($data['commentaire']),
         );
 
-        // Etape 3 : Exécuter le tableau de contrainte (execute)
         $p->execute($data);
         }
 
@@ -54,8 +50,11 @@ class model{
     }
 
     public function takeUtilisateur($id){
-        $sql="UPDATE utilisateurs SET prisencharge = 1 WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
+        $sql1 = 'UPDATE utilisateurs SET prisencharge = 1 WHERE id = "'.$id.'"';
+        $sql2 = 'UPDATE tsp SET nbutilisateurs = nbutilisateurs + 1 WHERE id = "'.$id.'"';
+
+        $stmt = $this->pdo->prepare($sql1);
+        $stmt = $this->pdo->prepare($sql2);
     }
 
     public function countUtilisateur(){
@@ -64,7 +63,8 @@ class model{
     }
 
     public function countMotif($motif){
-        $sql="SELECT COUNT(motif) FROM utilisateurs WHERE motif = '?' ";
+        $sql= 'SELECT COUNT(motif) FROM utilisateurs WHERE motif ="'.$motif.'"';
+
         return $this->pdo->query($sql)->fetch();
     }
 
@@ -77,7 +77,8 @@ class model{
             :cuid,
             :prenom,
             :nom,
-            :mdp
+            :mdp,
+            0
         )";
 
         $p = $this->pdo->prepare($sql);
@@ -92,6 +93,11 @@ class model{
         $p->execute($data);
     }
     
+    public function findNameById($cuid){
+        $sql = 'SELECT prenom FROM tsp WHERE cuid = "'.$cuid.'"';
+        return $this->pdo->query($sql)->fetch();
+    }
+
 
 
     

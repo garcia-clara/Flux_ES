@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 31 jan. 2023 à 19:37
+-- Généré le : jeu. 02 fév. 2023 à 13:50
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -34,16 +34,16 @@ CREATE TABLE IF NOT EXISTS `tsp` (
   `prenom` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `nom` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `mdp` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `nbutilisateurs` int(100) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `tsp`
 --
 
-INSERT INTO `tsp` (`id`, `cuid`, `prenom`, `nom`, `mdp`) VALUES
-(54, 'HGTJ1285', 'Victoria', 'DOUGLAS', '0808'),
-(53, 'CYGP3115', 'Clara', 'GARCIA', '0909');
+INSERT INTO `tsp` (`id`, `cuid`, `prenom`, `nom`, `mdp`, `nbutilisateurs`) VALUES
+(67, 'X', 'x', 'X', 'x', 0);
 
 -- --------------------------------------------------------
 

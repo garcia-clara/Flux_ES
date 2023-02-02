@@ -1,6 +1,8 @@
 
+
+
 <div class="row start-1 row-end-1 shadow-md">
-  <div>
+  <div class="h-1/2">
 
     <ul class="menu bg-base-100 w-full p-2">
     <li class="menu-title">
@@ -18,4 +20,5 @@
 
     </ul>
   </div>
+
 </div>

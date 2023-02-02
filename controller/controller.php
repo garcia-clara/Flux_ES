@@ -15,8 +15,8 @@ class controller
 
     public function insertUtilisateur($data)
     {
-        $e = $this->model->insertUtilisateur($data);
-        if($e){
+        $f = $this->model->insertUtilisateur($data);
+        if($f){
             header("Location:../vues/ajouter.php?success");
         } else {
             header("Location:../vues/ajouter.php?error");
@@ -40,19 +40,32 @@ class controller
     }
 
     public function inscription($data){
-        $this->model->inscription($data);
+        $f = $this->model->inscription($data);
+
+        if($f){
+            header("Location:../vues/connexion.php?signup-success");
+        } else {
+            header("Location:../vues/inscription.php?signup-error");
+        }
+    }
+
+    public function findNameById($cuid){
+        $this->model->findNameById($cuid);
     }
 
     public function connexion($cuid, $mdp)
     {
         $allTsp = $this->model->get_all('tsp');
+        $prenom = $this->model->findNameById($cuid);
 
         foreach ($allTsp as $tsp) {
             if ($tsp['cuid'] === $cuid) {
 
                 if ($tsp['mdp'] === $mdp) {
+
                     $_SESSION['cuid'] = $tsp['cuid'];
                     $_SESSION['mdp'] = $tsp['mdp'];
+                    $_SESSION['prenom'] = $prenom;
                     header('Location: ../vues/statistiques.php');
                 } 
             } else {
@@ -62,6 +75,7 @@ class controller
 
 
     }
+
 }
 
 

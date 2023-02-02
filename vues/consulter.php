@@ -45,7 +45,7 @@
 
                     <?php } else { ?>
 
-                    <table class="table w-full border">
+                    <table class="table w-full shadow">
 
                         <!-- head -->
                         <thead>
@@ -74,13 +74,18 @@
                                 <td><?php echo $unUtilisateur['commentaire'] ?></td>
                                 <td>
                                 <?php
+
+                                    $controller->model->takeUtilisateur(13);
+
                                     if (!isset($_POST['prisencharge'])){ ?>
                                         <form action="" method="POST">
                                         <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
                                         </form> 
                                         <?php } else {
                                         $controller->model->takeUtilisateur(13);
-                                        ?> <div class="badge badge-primary badge-outline">Romain RINVILLE</div> <?php
+                                        ?> <div class="badge badge-primary badge-outline">
+                                            <?php echo $_SESSION['cuid']; ?>
+                                        </div> <?php
                                     }
                                 ?>
                                 </td>

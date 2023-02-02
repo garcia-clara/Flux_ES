@@ -74,23 +74,37 @@
 
                         <div class="stat w-36">
                             <div class="stat-title">ROADMAP</div>
-                            <div class="stat-value">2</div>
+                            <div class="stat-value">
+                            <?php   
+                                    $usersRoadmap = $controller->model->countMotif("ROADMAP");
+                                    echo $usersRoadmap[0];
+                                ?>
+                            </div>
                         </div>
 
                         <div class="stat w-36">
                             <div class="stat-title">PILAF</div>
-                            <div class="stat-value">1</div>
+                            <div class="stat-value">
+                            <?php   
+                                    $usersPilaf = $controller->model->countMotif("PILAF");
+                                    echo $usersPilaf[0];
+                                ?>
+                            </div>
                         </div>
 
                         <div class="stat w-36">
                             <div class="stat-title">Autre</div>
-                            <div class="stat-value">0</div>
+                            <div class="stat-value">
+                            <?php   
+                                    $usersAutre = $controller->model->countMotif("Autre");
+                                    echo $usersAutre[0];
+                                ?>
+                            </div>
                         </div>
 
                     </div>
 
                 </div>
-
 
             </div>
 
