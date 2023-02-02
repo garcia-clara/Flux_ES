@@ -25,17 +25,17 @@ class controller
 
     public function showUtilisateur()
     {
-        $this->model->showUtilisateur;
+        $this->model->showUtilisateur();
     }
 
     public function takeUtilisateur()
     {
-        $this->model->takeUtilisateur;
+        $this->model->takeUtilisateur();
     }
 
     public function countUtilisateur()
     {
-        $this->model->countUtilisateur;
+        $this->model->countUtilisateur();
     }
 
     public function countMotif($motif)

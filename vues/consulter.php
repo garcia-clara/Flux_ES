@@ -79,7 +79,7 @@
                                             $controller->model->takeUtilisateur(13);
 
                                             if (!isset($_POST['prisencharge'])) { ?>
-                                                <form action="" method="POST">
+                                                <form action="#" method="POST">
                                                     <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
                                                 </form>
                                             <?php } else {
