@@ -1,6 +1,6 @@
-<?php include('../model/model.php') ?>
-
 <?php
+
+include('../model/model.php');
 
 class controller
 {
@@ -16,69 +16,70 @@ class controller
     public function insertUtilisateur($data)
     {
         $f = $this->model->insertUtilisateur($data);
-        if($f){
+        if ($f) {
             header("Location:../vues/ajouter.php?success");
         } else {
             header("Location:../vues/ajouter.php?error");
         }
     }
 
-    public function showUtilisateur(){
+    public function showUtilisateur()
+    {
         $this->model->showUtilisateur;
     }
 
-    public function takeUtilisateur(){
+    public function takeUtilisateur()
+    {
         $this->model->takeUtilisateur;
     }
 
-    public function countUtilisateur(){
+    public function countUtilisateur()
+    {
         $this->model->countUtilisateur;
     }
 
-    public function countMotif($motif){
+    public function countMotif($motif)
+    {
         $this->model->countMotif($motif);
     }
 
-    public function inscription($data){
+    public function inscription($data)
+    {
         $f = $this->model->inscription($data);
 
-        if($f){
+        if ($f) {
             header("Location:../vues/connexion.php?signup-success");
         } else {
             header("Location:../vues/inscription.php?signup-error");
         }
     }
 
-    public function findNameById($cuid){
+    public function findNameById($cuid)
+    {
         $this->model->findNameById($cuid);
     }
 
     public function connexion($cuid, $mdp)
     {
         $allTsp = $this->model->get_all('tsp');
-        $prenom = $this->model->findNameById($cuid);
+        $prenom = $this->model->findById($cuid);
+        var_dump($prenom);
 
         foreach ($allTsp as $tsp) {
-            if ($tsp['cuid'] === $cuid) {
-
-                if ($tsp['mdp'] === $mdp) {
-
+            if ($tsp['prenom'] == $prenom['prenom']) {
+                var_dump('ok prenom');
+                if ($tsp['mdp'] == $prenom['mdp']) {
+                    var_dump('ok mdp');
+                    // set variable de session
                     $_SESSION['cuid'] = $tsp['cuid'];
-                    $_SESSION['mdp'] = $tsp['mdp'];
-                    $_SESSION['prenom'] = $prenom;
-                    header('Location: ../vues/statistiques.php');
-                } 
-            } else {
-                header('Location: ../vues/connexion.php?signin-error');
+                    $_SESSION['prenom'] = $tsp['prenom'];
+                    header('Location: ../vues/statistiques.php?statut=ok');
+                }
             }
         }
 
-
+        if (!$prenom) {
+            header('Location: ../vues/connexion.php?statut=error');
+        }
     }
-
 }
-
-
-
-
-?>
