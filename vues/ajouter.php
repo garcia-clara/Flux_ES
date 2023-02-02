@@ -1,5 +1,5 @@
-<?php include('../components/navbar.php') ?>
 <?php include('../controller/controller.php') ?>
+<?php include('../components/navbar.php') ?>
 <?php include('../flags/flags.php') ?>
 
 <!DOCTYPE html>
@@ -100,7 +100,6 @@
 
   if (isset($_POST['ajouter'])) {
     $controller->insertUtilisateur($_POST);
-    
   }
 
   ?>

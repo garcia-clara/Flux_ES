@@ -1,5 +1,5 @@
-<?php include('../components/navbar.php') ?>
 <?php include('../controller/controller.php') ?>
+<?php include('../components/navbar.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -33,11 +33,11 @@
 
                 <div class="overflow-x-auto m-4">
 
-                <?php 
+                    <?php
                     $controller = new controller;
                     $allUtilisateurs = $controller->model->showUtilisateur();
 
-                    if(empty($allUtilisateurs)){ ?>
+                    if (empty($allUtilisateurs)) { ?>
 
                         <div class="flex items-center justify-center">
                             <p class="text-xl m-24">Aucun utilisateur en attente</p>
@@ -45,56 +45,58 @@
 
                     <?php } else { ?>
 
-                    <table class="table w-full shadow">
+                        <table class="table w-full shadow">
 
-                        <!-- head -->
-                        <thead>
-                            <tr>
-                                <th>CU-ID</th>
-                                <th>Nom</th>
-                                <th>Motif</th>
-                                <th>Numéro</th>
-                                <th>Heure d'arrivée</th>
-                                <th>Commentaire</th>
-                                <th>Prise en charge</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                            <!-- head -->
+                            <thead>
+                                <tr>
+                                    <th>CU-ID</th>
+                                    <th>Nom</th>
+                                    <th>Motif</th>
+                                    <th>Numéro</th>
+                                    <th>Heure d'arrivée</th>
+                                    <th>Commentaire</th>
+                                    <th>Prise en charge</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        <!-- rows -->
+                                <!-- rows -->
 
-                    <?php foreach($allUtilisateurs as $unUtilisateur){ ?>
+                                <?php foreach ($allUtilisateurs as $unUtilisateur) { ?>
 
-                            <tr>
-                                <th><?php echo $unUtilisateur['cuid'] ?></th>
-                                <td><?php echo $unUtilisateur['prenom']; $unUtilisateur['nom'] ?></td>
-                                <td><?php echo $unUtilisateur['motif'] ?></td>
-                                <td><?php echo $unUtilisateur['numero'] ?></td>
-                                <td><?php echo $unUtilisateur['heure'] ?></td>
-                                <td><?php echo $unUtilisateur['commentaire'] ?></td>
-                                <td>
-                                <?php
+                                    <tr>
+                                        <th><?php echo $unUtilisateur['cuid'] ?></th>
+                                        <td><?php echo $unUtilisateur['prenom'];
+                                            $unUtilisateur['nom'] ?></td>
+                                        <td><?php echo $unUtilisateur['motif'] ?></td>
+                                        <td><?php echo $unUtilisateur['numero'] ?></td>
+                                        <td><?php echo $unUtilisateur['heure'] ?></td>
+                                        <td><?php echo $unUtilisateur['commentaire'] ?></td>
+                                        <td>
+                                            <?php
 
-                                    $controller->model->takeUtilisateur(13);
+                                            $controller->model->takeUtilisateur(13);
 
-                                    if (!isset($_POST['prisencharge'])){ ?>
-                                        <form action="" method="POST">
-                                        <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
-                                        </form> 
-                                        <?php } else {
-                                        $controller->model->takeUtilisateur(13);
-                                        ?> <div class="badge badge-primary badge-outline">
-                                            <?php echo $_SESSION['cuid']; ?>
-                                        </div> <?php
-                                    }
-                                ?>
-                                </td>
-                            </tr>
-                        
-                <?php }} ?>
-                        </tbody>
-                    </table>
-                    
+                                            if (!isset($_POST['prisencharge'])) { ?>
+                                                <form action="" method="POST">
+                                                    <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
+                                                </form>
+                                            <?php } else {
+                                                $controller->model->takeUtilisateur(13);
+                                            ?> <div class="badge badge-primary badge-outline">
+                                                    <?php echo $_SESSION['cuid']; ?>
+                                                </div> <?php
+                                                    }
+                                                        ?>
+                                        </td>
+                                    </tr>
+
+                            <?php }
+                            } ?>
+                            </tbody>
+                        </table>
+
 
 
                 </div>
