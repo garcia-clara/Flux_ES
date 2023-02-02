@@ -28,9 +28,9 @@ class controller
         $this->model->showUtilisateur();
     }
 
-    public function takeUtilisateur()
+    public function takeUtilisateur($id)
     {
-        $this->model->takeUtilisateur();
+        $this->model->takeUtilisateur($id);
     }
 
     public function countUtilisateur()

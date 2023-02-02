@@ -102,7 +102,7 @@
 <?php
 // traitement du formaulaire de prise en charge
 if (isset($_POST['prisencharge'])) {
-    $controller->model->takeUtilisateur($_POST['id']);
+    $controller->takeUtilisateur($_POST['id']);
     // redirection sur la même page sans le renvoie de formulaire car ça fait tout bug
     header('Location: consulter.php');
 }
