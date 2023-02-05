@@ -1,5 +1,3 @@
 <?php
-  session_destroy();
-  $_SESSION = array();
-  header('Location: connexion.php');
-?>
+session_destroy();
+header('Location: connexion.php');

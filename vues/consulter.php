@@ -1,5 +1,5 @@
-<?php include('../components/navbar.php') ?>
 <?php include('../controller/controller.php') ?>
+<?php include('../components/navbar.php') ?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>ESPACE TSP - Consulter les utilisateurs</title>
-    <meta http-equiv="refresh" content="10">
+    <!-- <meta http-equiv="refresh" content="10"> -->
 </head>
 
 <body>
@@ -30,24 +30,22 @@
             </div>
 
             <div class="w-10/12 rounded-lg ml-8">
-
                 <div class="overflow-x-auto m-4">
+                    <?php
+                    // on récupère tous nos users
+                    $controller = new controller();
+                    $users = $controller->model->showUtilisateur();
+                    ?>
 
-                <?php 
-                    $controller = new controller;
-                    $allUtilisateurs = $controller->model->showUtilisateur();
-
-                    if(empty($allUtilisateurs)){ ?>
-
+                    <!-- Controler si $users est vide -->
+                    <?php if (count($users) === 0) : ?>
                         <div class="flex items-center justify-center">
                             <p class="text-xl m-24">Aucun utilisateur en attente</p>
                         </div>
-
-                    <?php } else { ?>
+                    <?php endif; ?>
+                    <!-- Controler si $users est vide -->
 
                     <table class="table w-full shadow">
-
-                        <!-- head -->
                         <thead>
                             <tr>
                                 <th>CU-ID</th>
@@ -60,52 +58,51 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                        <!-- rows -->
-
-                    <?php foreach($allUtilisateurs as $unUtilisateur){ ?>
-
-                            <tr>
-                                <th><?php echo $unUtilisateur['cuid'] ?></th>
-                                <td><?php echo $unUtilisateur['prenom']; $unUtilisateur['nom'] ?></td>
-                                <td><?php echo $unUtilisateur['motif'] ?></td>
-                                <td><?php echo $unUtilisateur['numero'] ?></td>
-                                <td><?php echo $unUtilisateur['heure'] ?></td>
-                                <td><?php echo $unUtilisateur['commentaire'] ?></td>
-                                <td>
-                                <?php
-
-                                    $controller->model->takeUtilisateur(13);
-
-                                    if (!isset($_POST['prisencharge'])){ ?>
-                                        <form action="" method="POST">
-                                        <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
-                                        </form> 
-                                        <?php } else {
-                                        $controller->model->takeUtilisateur(13);
-                                        ?> <div class="badge badge-primary badge-outline">
-                                            <?php echo $_SESSION['cuid']; ?>
-                                        </div> <?php
-                                    }
-                                ?>
-                                </td>
-                            </tr>
-                        
-                <?php }} ?>
+                            <!-- foreach des users -->
+                            <?php foreach ($users as $user) : ?>
+                                <tr>
+                                    <th><?= $user['cuid'] ?></th>
+                                    <td>
+                                        <?= $user['prenom'] ?>
+                                        <?= $user['nom'] ?>
+                                    </td>
+                                    <td><?= $user['motif'] ?></td>
+                                    <td><?= $user['numero'] ?></td>
+                                    <td><?= $user['heure'] ?></td>
+                                    <td><?= $user['commentaire'] ?></td>
+                                    <td>
+                                        <!-- Si notre user n'est pris en charge -->
+                                        <?php if ($user['prisencharge'] !== '1') : ?>
+                                            <form action="#" method="POST">
+                                                <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
+                                                <input type='text' hidden name='id' value="<?= $user['id'] ?>">
+                                            </form>
+                                            <!-- Si notre user est pris en charge -->
+                                        <?php else : ?>
+                                            <!-- Si notre user EST pris en charge -->
+                                            <div class="badge badge-primary badge-outline">
+                                                <?php echo $_SESSION['cuid']; ?>
+                                            </div>
+                                            <!-- Si notre user EST pris en charge -->
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <!-- foreach des users -->
                         </tbody>
                     </table>
-                    
-
-
                 </div>
-
             </div>
-
         </div>
     </div>
-
-
-
 </body>
 
 </html>
+
+<?php
+// traitement du formaulaire de prise en charge
+if (isset($_POST['prisencharge'])) {
+    $controller->takeUtilisateur($_POST['id']);
+    // redirection sur la même page sans le renvoie de formulaire car ça fait tout bug
+    header('Location: consulter.php');
+}

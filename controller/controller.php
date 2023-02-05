@@ -1,6 +1,6 @@
-<?php include('../model/model.php') ?>
-
 <?php
+session_start();
+include('../model/model.php');
 
 class controller
 {
@@ -16,69 +16,64 @@ class controller
     public function insertUtilisateur($data)
     {
         $f = $this->model->insertUtilisateur($data);
-        if($f){
+        if ($f) {
             header("Location:../vues/ajouter.php?success");
         } else {
             header("Location:../vues/ajouter.php?error");
         }
     }
 
-    public function showUtilisateur(){
-        $this->model->showUtilisateur;
+    public function showUtilisateur()
+    {
+        $this->model->showUtilisateur();
     }
 
-    public function takeUtilisateur(){
-        $this->model->takeUtilisateur;
+    public function takeUtilisateur($id)
+    {
+        $this->model->takeUtilisateur($id);
     }
 
-    public function countUtilisateur(){
-        $this->model->countUtilisateur;
+    public function countUtilisateur()
+    {
+        $this->model->countUtilisateur();
     }
 
-    public function countMotif($motif){
+    public function countMotif($motif)
+    {
         $this->model->countMotif($motif);
     }
 
-    public function inscription($data){
-        $f = $this->model->inscription($data);
-
-        if($f){
-            header("Location:../vues/connexion.php?signup-success");
-        } else {
-            header("Location:../vues/inscription.php?signup-error");
-        }
+    public function inscription($data)
+    {
+        $this->model->inscription($data);
     }
 
-    public function findNameById($cuid){
+    public function findNameById($cuid)
+    {
         $this->model->findNameById($cuid);
     }
 
     public function connexion($cuid, $mdp)
     {
-        $allTsp = $this->model->get_all('tsp');
-        $prenom = $this->model->findNameById($cuid);
+        $potential_user = $this->model->findById($cuid);
 
-        foreach ($allTsp as $tsp) {
-            if ($tsp['cuid'] === $cuid) {
-
-                if ($tsp['mdp'] === $mdp) {
-
-                    $_SESSION['cuid'] = $tsp['cuid'];
-                    $_SESSION['mdp'] = $tsp['mdp'];
-                    $_SESSION['prenom'] = $prenom;
-                    header('Location: ../vues/statistiques.php');
-                } 
-            } else {
-                header('Location: ../vues/connexion.php?signin-error');
-            }
+        // on controle si on a un user
+        if (!$potential_user) {
+            header('Location: ../vues/connexion.php?status=error');
         }
 
+        // on controle maintenant le mot de passe
+        $mdp_tsp = $this->pdo->query("SELECT * FROM tsp WHERE mdp = '$mdp'")->fetch();
 
+        if (!$mdp_tsp) {
+            header('Location: ../vues/connexion.php?status=error');
+        }
+
+        // si on arrive la, c'est que notre user est bon alors
+        // on set les variables de session
+        $_SESSION['cuid'] = $potential_user['cuid'];
+        $_SESSION['prenom'] = $potential_user['prenom'];
+
+        return  header('Location: ../vues/statistiques.php');
     }
-
 }
-
-
-
-
-?>

@@ -1,5 +1,7 @@
-<?php include('../components/navbar.php') ?>
-<?php include('../controller/controller.php') ?>
+<?php
+include('../controller/controller.php');
+include('../components/navbar.php');
+?>
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="en">
@@ -36,10 +38,10 @@
                         <div class="">
                             <div class="stat-value">
 
-                                <?php   
-                                    $controller = new controller;
-                                    $usersNumbers = $controller->model->countUtilisateur();
-                                    echo $usersNumbers[0];
+                                <?php
+                                $controller = new controller;
+                                $usersNumbers = $controller->model->countUtilisateur();
+                                echo $usersNumbers[0];
                                 ?>
 
                             </div>
@@ -55,19 +57,19 @@
                         <div class="stat w-36">
                             <div class="stat-title">DMI</div>
                             <div class="stat-value">
-                                <?php   
-                                    $usersDMI = $controller->model->countMotif("DMI");
-                                    echo $usersDMI[0];
+                                <?php
+                                $usersDMI = $controller->model->countMotif("DMI");
+                                echo $usersDMI[0];
                                 ?>
                             </div>
                         </div>
-                        
+
                         <div class="stat w-36">
                             <div class="stat-title">Incident</div>
                             <div class="stat-value">
-                                <?php   
-                                    $usersIncident = $controller->model->countMotif("Incident");
-                                    echo $usersIncident[0];
+                                <?php
+                                $usersIncident = $controller->model->countMotif("Incident");
+                                echo $usersIncident[0];
                                 ?>
                             </div>
                         </div>
@@ -75,9 +77,9 @@
                         <div class="stat w-36">
                             <div class="stat-title">ROADMAP</div>
                             <div class="stat-value">
-                            <?php   
-                                    $usersRoadmap = $controller->model->countMotif("ROADMAP");
-                                    echo $usersRoadmap[0];
+                                <?php
+                                $usersRoadmap = $controller->model->countMotif("ROADMAP");
+                                echo $usersRoadmap[0];
                                 ?>
                             </div>
                         </div>
@@ -85,9 +87,9 @@
                         <div class="stat w-36">
                             <div class="stat-title">PILAF</div>
                             <div class="stat-value">
-                            <?php   
-                                    $usersPilaf = $controller->model->countMotif("PILAF");
-                                    echo $usersPilaf[0];
+                                <?php
+                                $usersPilaf = $controller->model->countMotif("PILAF");
+                                echo $usersPilaf[0];
                                 ?>
                             </div>
                         </div>
@@ -95,9 +97,9 @@
                         <div class="stat w-36">
                             <div class="stat-title">Autre</div>
                             <div class="stat-value">
-                            <?php   
-                                    $usersAutre = $controller->model->countMotif("Autre");
-                                    echo $usersAutre[0];
+                                <?php
+                                $usersAutre = $controller->model->countMotif("Autre");
+                                echo $usersAutre[0];
                                 ?>
                             </div>
                         </div>
