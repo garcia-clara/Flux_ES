@@ -100,6 +100,7 @@
 
   if (isset($_POST['ajouter'])) {
     $controller->insertUtilisateur($_POST);
+    header('Location:ajouter.php?add-success');
   }
 
   ?>

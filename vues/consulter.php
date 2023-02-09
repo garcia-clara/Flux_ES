@@ -71,8 +71,8 @@
                                     <td><?= $user['heure'] ?></td>
                                     <td><?= $user['commentaire'] ?></td>
                                     <td>
-                                        <!-- Si notre user n'est pris en charge -->
-                                        <?php if ($user['prisencharge'] !== '1') : ?>
+                                        <!-- Si notre user n'est pas pris en charge -->
+                                        <?php if ($user['prisencharge'] === '') : ?>
                                             <form action="#" method="POST">
                                                 <button type="submit" class="btn btn-accent" name="prisencharge">Prendre en charge</button>
                                                 <input type='text' hidden name='id' value="<?= $user['id'] ?>">
@@ -80,9 +80,41 @@
                                             <!-- Si notre user est pris en charge -->
                                         <?php else : ?>
                                             <!-- Si notre user EST pris en charge -->
-                                            <div class="badge badge-primary badge-outline">
-                                                <?php echo $_SESSION['cuid']; ?>
-                                            </div>
+                                            <form action="#" method="POST">
+                                                <?php
+
+                                                if ($user['prisencharge'] === $_SESSION['prenom']) { ?>
+                                                    <form action="#" method="POST">
+                                                        <button class="btn gap-2 btn-primary" type="submit" name="retirerprisencharge">
+                                                        <input type='text' hidden name='id' value="<?= $user['id'] ?>">
+
+                                                            <?php
+                                                            $tspname = $controller->model->getTspName($user['id']);
+                                                            echo $tspname['prisencharge'];
+                                                            ?>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+
+                                                <?php } else { ?>
+
+                                                    <button class="btn gap-2 btn-secondary">
+                                                        <?php
+                                                        $tspname = $controller->model->getTspName($user['id']);
+                                                        echo $tspname['prisencharge'];
+                                                        ?>
+                                                    </button>
+
+                                                <?php } ?>
+
+
+
+                                                </button>
+
+                                                <input type='text' hidden name='id' value="<?= $user['id'] ?>">
+                                            </form>
                                             <!-- Si notre user EST pris en charge -->
                                         <?php endif; ?>
                                     </td>
@@ -102,7 +134,13 @@
 <?php
 // traitement du formaulaire de prise en charge
 if (isset($_POST['prisencharge'])) {
-    $controller->takeUtilisateur($_POST['id']);
+    $controller->takeUtilisateur($_SESSION['prenom'], $_POST['id']);
+    // redirection sur la même page sans le renvoie de formulaire car ça fait tout bug
+    header('Location: consulter.php');
+}
+
+if (isset($_POST['retirerprisencharge'])) {
+    $controller->undoTakeUtilisateur($_POST['id']);
     // redirection sur la même page sans le renvoie de formulaire car ça fait tout bug
     header('Location: consulter.php');
 }

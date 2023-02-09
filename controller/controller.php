@@ -28,10 +28,16 @@ class controller
         $this->model->showUtilisateur();
     }
 
-    public function takeUtilisateur($id)
+    public function takeUtilisateur($name, $id)
     {
-        $this->model->takeUtilisateur($id);
+        $this->model->takeUtilisateur($name, $id);
     }
+
+    public function undoTakeUtilisateur($id)
+    {
+        $this->model->undoTakeUtilisateur($id);
+    }
+
 
     public function countUtilisateur()
     {
@@ -59,14 +65,14 @@ class controller
 
         // on controle si on a un user
         if (!$potential_user) {
-            header('Location: ../vues/connexion.php?status=error');
+            header('Location: ../vues/connexion.php?signin-error');
         }
 
         // on controle maintenant le mot de passe
         $mdp_tsp = $this->pdo->query("SELECT * FROM tsp WHERE mdp = '$mdp'")->fetch();
 
         if (!$mdp_tsp) {
-            header('Location: ../vues/connexion.php?status=error');
+            header('Location: ../vues/connexion.php?signin-error');
         }
 
         // si on arrive la, c'est que notre user est bon alors
@@ -76,4 +82,13 @@ class controller
 
         return  header('Location: ../vues/statistiques.php');
     }
+
+    public function userPercentage($cuid){
+        $this->model->userPercentage($cuid);
+    }
+
+    function cal_percentage($num_amount, $num_total)
+    {
+        return $this->model->cal_percentage($num_amount, $num_total);
+}
 }

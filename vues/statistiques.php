@@ -116,24 +116,25 @@ include('../components/navbar.php');
 
                     <div class="stats shadow">
 
-                        <div class="stat min-w-fit w-80">
-                            <div class="stat-title text-2xl font-bold">Clara GARCIA</div>
-                            <div class="radial-progress text-primary mt-4" style="--value:70; --size:9em">70%</div>
-                        </div>
-                    </div>
+                        <?php
 
-                    <div class="stats shadow">
-                        <div class="stat min-w-fit w-80">
-                            <div class="stat-title text-2xl font-bold">Romain RINVILLE</div>
-                            <div class="radial-progress text-primary mt-4" style="--value:70; --size:9em">70%</div>
-                        </div>
-                    </div>
+                        $allTsp = $controller->model->get_all('tsp');
 
-                    <div class="stats shadow">
-                        <div class="stat min-w-fit w-80">
-                            <div class="stat-title text-2xl font-bold">Malik AMOUR</div>
-                            <div class="radial-progress text-primary mt-4" style="--value:70; --size:9em">70%</div>
-                        </div>
+                        foreach ($allTsp as $Tsp) {
+                        ?>
+
+                            <div class="stat min-w-fit w-80">
+                                <div class="stat-title text-2xl font-bold"><?= $Tsp['prenom'] ?></div>
+
+                                    <?php $usersencharge = $controller->model->userPercentage($Tsp['cuid']);
+                                    
+                                    $percentage = $controller->model->cal_percentage($Tsp['nbutilisateurs'], $usersNumbers[0]);
+                                ?>
+
+                                <div class="radial-progress text-primary mt-4" style="--value:<?= $percentage ?>; --size:9em"><?= $percentage ?></div>
+                            </div>
+
+                        <?php } ?>
 
                     </div>
 
@@ -141,8 +142,6 @@ include('../components/navbar.php');
                 </div>
 
             </div>
-
-        </div>
 
 
 
