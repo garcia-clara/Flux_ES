@@ -30,12 +30,12 @@ include('../components/navbar.php');
                 <p class="ml-4">STATISTIQUES</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 h-fit m-4">
+            <div class="flex gap-4 h-fit m-4">
 
-                <div class="stats shadow h-32 min-w-fit">
+                <div class="stats shadow h-32 w-auto">
                     <div class="stat">
                         <div class="stat-title">Total d'utilisateurs pris en charge par l'équipe</div>
-                        <div class="">
+                        <div>
                             <div class="stat-value">
 
                                 <?php
@@ -110,11 +110,9 @@ include('../components/navbar.php');
 
             </div>
 
-            <div class="grid row-start-2 col-start-1 col-end-2">
+                <div class="gap-4 w-fit m-4">
 
-                <div class="flex flex-wrap gap-4 w-fit m-4">
-
-                    <div class="stats shadow">
+                    <div class="flex flex-wrap stats shadow">
 
                         <?php
 
@@ -123,7 +121,7 @@ include('../components/navbar.php');
                         foreach ($allTsp as $Tsp) {
                         ?>
 
-                            <div class="stat min-w-fit w-80">
+                            <div class="stat w-auto">
                                 <div class="stat-title text-2xl font-bold"><?= $Tsp['prenom'] ?></div>
 
                                     <?php $usersencharge = $controller->model->userPercentage($Tsp['cuid']);
@@ -131,7 +129,7 @@ include('../components/navbar.php');
                                     $percentage = $controller->model->cal_percentage($Tsp['nbutilisateurs'], $usersNumbers[0]);
                                 ?>
 
-                                <div class="radial-progress text-primary mt-4" style="--value:<?= $percentage ?>; --size:9em"><?= $percentage ?></div>
+                                <div class="radial-progress text-primary mt-4" style="--value:<?= $percentage ?>; --size:9em"><?= $percentage ?> % </div>
                             </div>
 
                         <?php } ?>
@@ -141,7 +139,6 @@ include('../components/navbar.php');
 
                 </div>
 
-            </div>
 
 
 

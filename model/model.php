@@ -131,7 +131,7 @@ class model
     // plutot ça
     public function findById($cuid)
     {
-        return $this->pdo->query("SELECT * FROM tsp WHERE cuid = $cuid")->fetch();
+        return $this->pdo->query('SELECT * FROM tsp WHERE cuid = "' . $cuid . '"')->fetch();
     }
 
     public function userPercentage($cuid){

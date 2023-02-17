@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 02 fév. 2023 à 18:48
--- Version du serveur : 5.7.36
--- Version de PHP : 7.4.26
+-- Généré le : ven. 17 fév. 2023 à 13:20
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,14 +36,19 @@ CREATE TABLE IF NOT EXISTS `tsp` (
   `mdp` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `nbutilisateurs` int(100) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `tsp`
 --
 
 INSERT INTO `tsp` (`id`, `cuid`, `prenom`, `nom`, `mdp`, `nbutilisateurs`) VALUES
-(69, '270', 'Tom', 'LAU', 'tom', 4);
+(74, 'Q', 'q', 'Q', 'q', 1),
+(73, 'X', 'x', 'X', 'x', 1),
+(72, 'CYGP3115', 'Clara', 'GARCIA', '0909', 1),
+(75, 'W', 'w', 'W', 'w', 1),
+(76, 'C', 'c', 'C', 'c', 1),
+(77, 'VV', 'v', 'V', 'v', 1);
 
 -- --------------------------------------------------------
 
@@ -57,24 +62,30 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `prenom` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `nom` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `cuid` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
-  `heure` time(4) NOT NULL,
+  `heure` time NOT NULL,
   `motif` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `numero` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `commentaire` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `prisencharge` tinyint(10) NOT NULL DEFAULT '0',
+  `prisencharge` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `prenom`, `nom`, `cuid`, `heure`, `motif`, `numero`, `commentaire`, `prisencharge`) VALUES
-(13, 'Clara', 'GARCIA', 'dd', '14:15:00.0000', 'Incident', 'dad', 'adad', 1),
-(14, 'ezfezf', 'zefzef', 'fzef', '16:43:00.0000', 'Incident', 'zefezf', 'zefezf', 1),
-(15, 'cdc', 'sc', 'sc', '17:43:00.0000', 'Autre', 'scsc', 'scsc', 1),
-(16, 'ze', 'ze', 'ze', '17:12:00.0000', 'DMI', 'ze', 'ze', 1),
-(17, 'cdc', 'sc', 'sc', '17:43:00.0000', 'Autre', 'scsc', 'scsc', 0);
+(24, 'd', 'd', 'd', '18:20:00', 'PILAF', 'd', 'd', ''),
+(23, 'Salim', 'Alarcon', 'DOCK5390', '16:43:00', 'ROADMAP', 'INC00002355', 'Ecran HS', '');
+
+DELIMITER $$
+--
+-- Évènements
+--
+DROP EVENT `delete_users_at_midnight`$$
+CREATE DEFINER=`root`@`localhost` EVENT `delete_users_at_midnight` ON SCHEDULE EVERY 1 DAY STARTS '2023-02-10 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM utilisateurs$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
